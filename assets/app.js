@@ -368,54 +368,89 @@ botonAgregar.addEventListener("click", function(event){
              }
         }
     }
-    
+    let textoPersonalidad = "texto";
     function sumaPersonalidad (suma){
         if(suma <= (-17)){
-            console.log ("inflexible");
+        textoPersonalidad = "Infelxible";
         }else if(suma <= (-9) && suma >= (-16)){
-            console.log("dificilmente flexible");
+            textoPersonalidad = "Dificilmente Flexible";
         }else if ( suma <= (-1) && suma >= (-8)){
-            console.log("ocacionalmente flexible");
+            textoPersonalidad= "Ocacionalmente Flexible";
         }else if(suma <= (8) && suma >= (0)){
-            console.log("moderadamente flexible");
+            textoPersonalidad = "Moderadamente Flexible";
         }else if (suma <= (16 && suma >=9)){
-            console.log("flexible");
+            textoPersonalidad = "Flexible";
         }else if(suma >=(17)){
-            console.log("muy flexible");
+            textoPersonalidad = "Muy Flexible";
         }
-    }
+}
     let suma = resultadoPersonalidadUno + resultadoPersonalidadDos + resultadoPersonalidadTres + resultadoPersonalidadCuatro + resultadoPersonalidadCinco + resultadoPersonalidadSeis + resultadoPersonalidadSiete + resultadoPersonalidadOcho + resultadoPersonalidadNueve + resultadoPersonalidadDiez + resultadoPersonalidadOnce + resultadoPersonalidadDoce;
 
     sumaPersonalidad(suma);
 
     console.log(dirigirSolucion, apoyarSolucion, entrenarSolucion, delegarSolucion);
     console.log(suma);
+    let sumaLiderazgo= dirigirSolucion + apoyarSolucion + entrenarSolucion + delegarSolucion;
+    let porcentajeDirigir = ((dirigirSolucion * 100)/ sumaLiderazgo).toFixed(0);
+    let porcentajeEntrenar = ((entrenarSolucion * 100)/ sumaLiderazgo).toFixed(0);
+    let porcentajeApoyar = ((apoyarSolucion * 100)/ sumaLiderazgo).toFixed(0);
+    let porcentajeDelegar = ((delegarSolucion * 100)/ sumaLiderazgo).toFixed(0);
 
 
+    console.log(porcentajeDirigir);
+    console.log(porcentajeEntrenar);
+    console.log(porcentajeApoyar);
+    console.log(porcentajeDelegar);
 
+    const nombre = document.getElementById("firstName").value;
+    const apellido = document.getElementById("lastName").value;
+    const correoElectronico = document.getElementById("email").value;
+    const contenido = document.getElementById("contenido").innerHTML = (`
+    <ul>
+        <li> Hola ${nombre} ${apellido}, gracias por contestar esta encuesta.
+        Te enviaremos una copia de los resultados al correo electronico: ${correoElectronico}
+        </li>
+        <li> El tipo de Liderazgo para ti es: ${porcentajeDirigir} % - ${porcentajeEntrenar}% - ${porcentajeApoyar}% - ${porcentajeDelegar}%
+        
+        </li>
+        <li> Y tu Flexibilidad para Liderar es: ${textoPersonalidad}
+        
+        </li>
+    </ul>
+    
+    `);
+
+    
+    const ctx = document.getElementById('myChart');
+
+    const myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Dirigir', 'Entrenar', 'Apoyar', 'Delegar'],
+            datasets: [{
+                label: 'Resultados Liderazgo',
+                data: [porcentajeDirigir, porcentajeEntrenar, porcentajeApoyar, porcentajeDelegar],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+       
+    });
+    
+    
+    
+     
 })
-const ctx = document.getElementById('myChart');
-const myChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        labels: ['Dirigir', 'Entrenar', 'Apoyar', 'Delegar'],
-        datasets: [{
-            label: 'Resultados Liderazgo',
-            data: [12, 19, 3, 5],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-});
+
 
