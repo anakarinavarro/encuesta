@@ -19,16 +19,10 @@ let resultadoPersonalidadOnce;
 let resultadoPersonalidadDoce;
 
 
-
-
-
 botonAgregar.addEventListener("click", function(event){
-    event.preventDefault() 
+
 
     const botonAgregar = document.getElementById('botonAgregar');
-
-    const preguntaUno = document.getElementById("pregunta1");
-    
     const respuestaUno = document.getElementsByName("respuestaUno");
     const respuestaDos = document.getElementsByName("respuestaDos");
     const respuestaTres = document.getElementsByName("respuestaTres");
@@ -308,20 +302,38 @@ botonAgregar.addEventListener("click", function(event){
     const apellido = document.getElementById("lastName").value;
     const correoElectronico = document.getElementById("email").value;
     const contenido = document.getElementById("contenido").innerHTML = (`
-    <ul>
-        <li> Hola ${nombre} ${apellido}, gracias por contestar esta encuesta.
-        Te enviaremos una copia de los resultados al correo electronico: ${correoElectronico}
+    <p>Hola ${nombre} ${apellido}, <br>
+    gracias por contestar esta encuesta. Te enviaremos una copia de los resultados al correo electronico:<strong> ${correoElectronico}</strong>
+    </p>
+    <p><strong>Los resultados son:</strong>
+    </p>
+    <h3><strong>Liderazgo</strong>
+    </h3>
+
+    <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Dirigir
+            <span class="badge rounded-pill" style="background-color: #e0cffc;">${porcentajeDirigir}%</span>
         </li>
-        <li> El tipo de Liderazgo para ti es: ${porcentajeDirigir} % - ${porcentajeEntrenar}% - ${porcentajeApoyar}% - ${porcentajeDelegar}%
-        
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Entrenar
+            <span class="badge rounded-pill" style="background-color: #fecba1;">${porcentajeEntrenar}%</span>
         </li>
-        <li> Y tu Flexibilidad para Liderar es: ${textoPersonalidad}
-        
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Apoyar
+            <span class="badge rounded-pill" style="background-color: #a6e9d5;">${porcentajeApoyar}%</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Delegar
+            <span class="badge rounded-pill" style="background-color: #ffe69c;">${porcentajeDelegar}%</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+        Tu Flexibilidad para Liderar es:
+            <span class="badge bg-primary rounded-pill">${textoPersonalidad}</span>
         </li>
     </ul>
     
     `);
-
     
     const ctx = document.getElementById('myChart');
 
@@ -333,16 +345,16 @@ botonAgregar.addEventListener("click", function(event){
                 label: 'Resultados Liderazgo',
                 data: [porcentajeDirigir, porcentajeEntrenar, porcentajeApoyar, porcentajeDelegar],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)'
+                    '#e0cffc',
+                    '#fecba1',
+                    '#a6e9d5',
+                    '#ffe69c'
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)'
+                    '#e0cffc',
+                    '#fecba1',
+                    '#a6e9d5',
+                    '#ffe69c'
                 ],
                 borderWidth: 1
             }]
@@ -350,9 +362,41 @@ botonAgregar.addEventListener("click", function(event){
        
     });
     
+
+    //validacion de formulario
+
+const formulario = document.getElementById("formulario");
+const radiosButtons = document.querySelector(`.form-check-input:checked`)
+
+formulario.addEventListener("submit", function (event){
+    if(nombre == "" || apellido == "" || correoElectronico == "" || radiosButtons == false){
+        const alerta = document.createElement(`div`);
+        alerta.classList.add(`invalid-feedback`, `d-block`, `text-center`);
+        alerta.textContent = `Todos los campos son obligatorios`;
+        document.querySelector(`.warning`).appendChild(alerta);
+        event.preventDefault();
+    }else {   
+        alert("caca");
+        //Mostrar y ocultar secciones
+        ocultarFormulario();
+        mostrarResultado();
+        event.preventDefault();
+    }
     
-    
-     
-})
+}) 
+});
+
+
+
+//Codigo para ocultar y mostrar
+function ocultarFormulario() {
+    const formularioContenedor = document.getElementById('formularioContenedor');
+    formularioContenedor.style.display = 'none';
+}
+
+function mostrarResultado() {
+    const resultadoEncuesta = document.getElementById('resultadoEncuesta');
+    resultadoEncuesta.style.display = 'block';
+}
 
 

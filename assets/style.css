@@ -23,3 +23,16 @@ button#botonAgregar {
     background-color: #FD8600;
     border: #FD8600;
 }
+.badge{
+    color: #333 !important;
+}
+span.badge.bg-primary.rounded-pill {
+    color: #FFF !important;
+    background-color: #333 !important;
+}
+
+
+
+
+
+
